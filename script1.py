@@ -1,2 +1,0 @@
-print('htdhdjbgyhgchfc')
-#print('abvbcd')
