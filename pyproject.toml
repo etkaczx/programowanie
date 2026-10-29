@@ -14,5 +14,6 @@ dependencies =[
 'pandas']
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+where = [","]
+include = ["src","src.*"]
 
