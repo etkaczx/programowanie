@@ -1,0 +1,18 @@
+[build-system]
+requires = ['setuptools']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'Data oriented progrmming course'
+version = '0.1'
+description = 'Examples for the programming course'
+requires-python = ''
+dependencies =[
+'jupyter',
+'jupytext',
+'numpy',
+'pandas']
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
