@@ -3,9 +3,9 @@ requires = ['setuptools']
 build-backend = 'setuptools.build_meta'
 
 [project]
-name = 'Data oriented progrmming course'
+name = 'data-oriented-programming'
 version = '0.1'
-description = 'Examples for the programming course'
+description = 'Data oriented progrmming course. Examples for the programming course'
 requires-python = ''
 dependencies =[
 'jupyter',
@@ -13,7 +13,7 @@ dependencies =[
 'numpy',
 'pandas']
 
-[tool.setuptools]
-where = [","]
+[tool.setuptools.packages.find]
+where = ["."]
 include = ["src","src.*"]
 
