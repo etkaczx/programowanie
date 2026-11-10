@@ -1,9 +1,18 @@
+from dataclasses import dataclass
+import matplotlib.pyplot as plt
+
 from .species import Creature
+
+
+@dataclass
+class HistoryElement:
+    prey: int
+    predators: int
 
 class Population:
 
-    _instances: set[Creature]
-    history: list[int]
+    _instances: set[Creature]  # Tu będą dwa zbiory (Prey & Predator)
+    history: list[int]  # list[HistoryElement]
 
     def __init__(self, n: int, **kwargs):
 
@@ -20,23 +29,13 @@ class Population:
 
         self._instances = set([creature for creature in self._instances if creature.alive])
 
-        # Aktualizacja historii
+        self.history.append(self.n)
 
     def plot_history(self):
-        plt.figure()
-
-        plt.plot(
-            range(len(self.history)),
-            self.history,
-            label="Creature"
-        )
-
-        plt.xlabel("Krok symulacji")
-        plt.ylabel("Liczba osobników")
-        plt.title("Liczebność populacji w czasie")
-        plt.legend()
-        plt.grid(True)
-
+        plt.plot(self.history)
+        plt.xlabel("Pokolenie")
+        plt.ylabel("Liczebność populacji")
+        plt.title("Historia populacji")
         plt.show()
 
     @property
