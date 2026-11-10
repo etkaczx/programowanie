@@ -14,10 +14,11 @@ class Population:
     _instances: set[Creature]  # Tu będą dwa zbiory (Prey & Predator)
     history: list[int]  # list[HistoryElement]
 
-    def __init__(self, n: int, **kwargs):
+    def __init__(self, population_data: dict, **kwargs):
+
 
         self._instances = set(
-            [Creature(**kwargs) for _ in range(n)]
+            [species(**kwargs) for species, n in population_data.items() for _ in range(n)]
         )
 
         self.history = [self.n]

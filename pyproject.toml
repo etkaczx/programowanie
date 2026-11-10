@@ -6,7 +6,7 @@ build-backend = 'setuptools.build_meta'
 name = 'data-oriented-programming'
 version = '0.1'
 description = 'Data oriented progrmming course. Examples for the programming course'
-requires-python = ''
+requires-python = '>=3.9'
 dependencies =[
 'jupyter',
 'jupytext',
