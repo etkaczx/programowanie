@@ -10,51 +10,66 @@ class Creature:
         self.p_reproduce = p_reproduce
 
     def kill(self):
-        """Kills (i.e. alive=False) the creature with probability p_death"""
+        """Kills the creature with probability p_death"""
         if random.random() < self.p_death:
             self.alive = False
 
     def reproduce(self):
         """Returns new instance of Creature with probability p_reproduce (otherwise None)"""
-
         if self.alive and (random.random() < self.p_reproduce):
-
-            # 1. Consider changing p_death, p_reproduce to have instances different from the parent
             return self.__class__(p_death=self.p_death, p_reproduce=self.p_reproduce)
 
         return None
 
-    # TODO: Implement it as descriptors
+
     @property
     def p_death(self):
-
         return self.__p_death
 
     @p_death.setter
     def p_death(self, value):
-
-        # Makes sure that 0 <= value <= 1
         value = min(1.0, max(0.0, value))
-
         self.__p_death = value
 
     @property
     def p_reproduce(self):
-
         return self.__p_reproduce
 
     @p_reproduce.setter
     def p_reproduce(self, value):
-
-        # Makes sure that 0 <= value <= 1
         value = min(1.0, max(0.0, value))
 
         self.__p_reproduce = value
 
 
 class Prey(Creature):
-    pass
+    def __init__(self, p_death: float, p_reproduce: float, p_hunt: float = 0.5):
+        super().__init__(p_death, p_reproduce)
+        self.p_hunt = p_hunt
+
+    def reproduce(self):
+        child = super().reproduce()
+        if child:
+            child.p_hunt = self.p_hunt
+        return child
 
 
 class Predator(Creature):
-    pass
+
+    p_death_hungry = 0.9
+
+    def __init__(self, p_death: float, p_reproduce: float):
+        super().__init__(p_death, p_reproduce)
+        self.hungry = True
+
+    def hunt(self, prey):
+        """Polowanie: sukces z prawdopodobieństwem prey.p_hunt"""
+        if self.alive and prey.alive and random.random() < prey.p_hunt:
+            prey.alive = False
+            self.hungry = False
+
+    def kill(self):
+        """Śmierć z p_death_hungry, gdy drapieżca jest głodny"""
+        p = self.p_death_hungry if self.hungry else self.p_death
+        if random.random() < p:
+            self.alive = False
