@@ -63,13 +63,13 @@ class Predator(Creature):
         self.hungry = True
 
     def hunt(self, prey):
-        """Polowanie: sukces z prawdopodobieństwem prey.p_hunt"""
+        """Hunt succeeds with probability prey.p_hunt"""
         if self.alive and prey.alive and random.random() < prey.p_hunt:
             prey.alive = False
             self.hungry = False
 
     def kill(self):
-        """Śmierć z p_death_hungry, gdy drapieżca jest głodny"""
+        """Death with p_death_hungry when the predator is hungry"""
         p = self.p_death_hungry if self.hungry else self.p_death
         if random.random() < p:
             self.alive = False
